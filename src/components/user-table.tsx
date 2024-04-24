@@ -44,8 +44,8 @@ export default function UserTable({ users }: { users: user[] }) {
                             <td>{user.name}</td>
                             <td>{user.email}</td>
                             <td className='text-white flex flex-wrap gap-2 justify-center my-3'>
-                                <Link href={`/user/${user.id}/edit`}>
-                                    <div className='px-4 py-2 bg-yellow-500 rounded-lg w-fit'>Edit</div>
+                                <Link href={`/user/${user.id}/create`}>
+                                    <div className='px-4 py-2 bg-yellow-500 rounded-lg w-fit'>Create Post</div>
                                 </Link>
                                 <button className='px-4 py-2 bg-red-500 w-fit rounded-lg'
                                     onClick={() => handleDelete(user.id)}>Delete</button>

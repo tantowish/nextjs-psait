@@ -11,8 +11,10 @@ export default function page() {
   const params = useParams()
   const router = useRouter();
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    title: "",
+    content: "",
+    published: true,
+    authorId: parseInt(params.id as unknown as string, 10)
   });
 
   const handleChange = (e: any) => {
@@ -26,9 +28,9 @@ export default function page() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/api/user", formData);
+      await axios.post("http://localhost:8000/api/post", formData);
       // Optionally, handle success or navigation after successful submission
-      router.push(`/user`); // Navigate to the posts endpoint
+      router.push(`/user/${params.id}/posts`); // Navigate to the posts endpoint
       console.log("Post submitted successfully!");
     } catch (error) {
       console.error('Error submitting post:', error);
@@ -37,13 +39,13 @@ export default function page() {
 
   return (
     <div>
-      <div className="mb-4">
-        <Link href={'/user'} className="px-3 py-1.5 bg-blue-500 mb-8 text-white rounded-xl">Back</Link>
+        <div className="mb-4">
+          <Link href={'/user'} className="px-3 py-1.5 bg-blue-500 mb-8 text-white rounded-xl">Back</Link>
       </div>
-      <h1 className="text-center mb-6 text-3xl font-bold text-teal-500">Create User</h1>
+      <h1 className="text-center mb-6 text-3xl font-bold text-teal-500">Create Posts</h1>
       <form onSubmit={handleSubmit}>
-        <Input name="name" value={formData.name} onChange={handleChange} />
-        <Input name="email" value={formData.email} onChange={handleChange} />
+        <Input name="title" value={formData.title} onChange={handleChange} />
+        <Input name="content" value={formData.content} onChange={handleChange} />
         <button type='submit' className='px-3 py-1.5 bg-blue-500 mb-8 text-white rounded-xl'>Submit</button>
       </form>
     </div>
